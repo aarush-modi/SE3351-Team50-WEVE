@@ -227,7 +227,8 @@ local function setup_player(player)
 	if player.hud_set_hotbar_itemcount then player:hud_set_hotbar_itemcount(1) end
 	player:hud_set_flags({wielditem = false})
 	hud[name] = {zone = ""}
-	hud[name].loc = hud_add(player, {hud_elem_type = "text", position = {x = 0.5, y = 0.03}, alignment = {x = 0, y = 1},
+	-- D-16: location label at the bottom centre, above the hotbar, clear of chat and the F5 debug text (top left)
+	hud[name].loc = hud_add(player, {hud_elem_type = "text", position = {x = 0.5, y = 0.88}, alignment = {x = 0, y = -1},
 		offset = {x = 0, y = 0}, text = "", number = 0xFFFFFF, scale = {x = 100, y = 100}})
 	hud_add(player, {hud_elem_type = "text", position = {x = 0.01, y = 0.97}, alignment = {x = 1, y = -1},
 		offset = {x = 0, y = 0}, number = 0xE0D0F8, scale = {x = 100, y = 100},
