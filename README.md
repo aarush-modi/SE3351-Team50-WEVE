@@ -4,12 +4,14 @@ SE 3351 Group Project, Team 50. A block-based digital twin of three Western Engi
 
 ## What is in this package
 
-| Folder | Contents |
-| --- | --- |
-| `weve/` | The Luanti game. Copy this folder into Luanti's `games` folder. |
-| `companion/` | Accessible text version of the tour (`index.html`). Open it in any web browser. |
-| `tools/` | Scripts that regenerate textures, photo placeholders and the companion page. |
-| `STAFF_GUIDE.md` | How a non-developer updates text, links and photos. |
+| Folder           | Contents                                                                        |
+| ---------------- | ------------------------------------------------------------------------------- |
+| `weve/`          | The Luanti game. Copy this folder into Luanti's `games` folder.                 |
+| `companion/`     | Accessible text version of the tour (`index.html`). Open it in any web browser. |
+| `tools/`         | Scripts that regenerate textures, photo placeholders and the companion page.    |
+| `STAFF_GUIDE.md` | How a non-developer updates text, links and photos.                             |
+
+Companion page (text tour): https://aarush-modi.github.io/SE3351-Team50-WEVE/companion/
 
 ## Run it (about 5 minutes)
 
@@ -42,13 +44,13 @@ Visitors get only the `interact` and `shout` privileges, so they cannot fly, pas
 
 ## Scope implemented
 
-| Building | Included |
-| --- | --- |
-| TEB | Pale limestone exterior with a glass entrance section, canopy and sign; main lobby; ground-floor main corridor; showcase room: ECE undergraduate teaching lab, seen from the doorway; 3 info points |
-| SEB | Sandstone Gothic Collegiate exterior with crenellated parapets and the tower over room 1076; entrance EX.7 from the SEB courtyard; entrance hall; main corridor TA.101; Dean's office door (closed, room still to confirm); showcase room: tiered lecture hall 1200 in the lecture-hall extension; 3 info points |
-| ACEB | Curtain-wall exterior with floors 3 and 4 cantilevered over the south end; south entrance EX.23 with a glass vestibule, opening into a double-height space with the open glass stair ST.B up to floor 2 (about 15 m, or 4 seconds' walk, from the doors); floor 2 corridor TA.241 to the north atrium; north atrium hall TA.144 running the full width of the building, with doors to the courtyard (EX.18) and to Western Road (EX.24); U-shaped glass stair ST.E over the atrium to floor 3; ST.F beside it to floor 4, whose north wall lines up with ST.F so floor 4 never covers the atrium; skylight roof; Engineering Galleries along corridor TA.141 with display cases; showcase room: prototyping space in room 1440 (about 250 m2, the 2,500 sq ft space; room still to confirm); solar roof, rainwater cistern and EV chargers; 3 info points |
-| Hub | Spawn plaza in the courtyard between ACEB and TEB, three building pads, welcome info point |
-| All connected buildings | Exterior of every level from the plans (SEB complex, CMLP, ACEB, the bridge to TEB), including roofs, the SEB tower and the courtyards. Inside, only the approved areas above are open; everything else is closed behind walls and grey doors (FR-02, Doc 6) |
+| Building                | Included                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TEB                     | Pale limestone exterior with a glass entrance section, canopy and sign; main lobby; ground-floor main corridor; showcase room: ECE undergraduate teaching lab, seen from the doorway; 3 info points                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| SEB                     | Sandstone Gothic Collegiate exterior with crenellated parapets and the tower over room 1076; entrance EX.7 from the SEB courtyard; entrance hall; main corridor TA.101; Dean's office door (closed, room still to confirm); showcase room: tiered lecture hall 1200 in the lecture-hall extension; 3 info points                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ACEB                    | Curtain-wall exterior with floors 3 and 4 cantilevered over the south end; south entrance EX.23 with a glass vestibule, opening into a double-height space with the open glass stair ST.B up to floor 2 (about 15 m, or 4 seconds' walk, from the doors); floor 2 corridor TA.241 to the north atrium; north atrium hall TA.144 running the full width of the building, with doors to the courtyard (EX.18) and to Western Road (EX.24); U-shaped glass stair ST.E over the atrium to floor 3; ST.F beside it to floor 4, whose north wall lines up with ST.F so floor 4 never covers the atrium; skylight roof; Engineering Galleries along corridor TA.141 with display cases; showcase room: prototyping space in room 1440 (about 250 m2, the 2,500 sq ft space; room still to confirm); solar roof, rainwater cistern and EV chargers; 3 info points |
+| Hub                     | Spawn plaza in the courtyard between ACEB and TEB, three building pads, welcome info point                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| All connected buildings | Exterior of every level from the plans (SEB complex, CMLP, ACEB, the bridge to TEB), including roofs, the SEB tower and the courtyards. Inside, only the approved areas above are open; everything else is closed behind walls and grey doors (FR-02, Doc 6)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 ### Where the layout comes from
 
@@ -60,14 +62,14 @@ The SEB complex, the Claudette MacKay-Lassonde Pavilion (CMLP) and ACEB follow t
 - **The approved spaces are built by hand** in `build.lua`, with room numbers in the comments: the ACEB south entrance, ST.B, the Engineering Galleries, prototyping space 1440, the north atrium and its stairs; the SEB entrance EX.7, TA.104, TA.103, main corridor TA.101, the TA.121 lobby and lecture hall 1200.
 - **TEB** is not in the plan set. Only its north end and the bridge (corridor TA.235 on Level 03) are drawn. That fixes TEB's position and its 23 m width, but its 100 m length is still an estimate from the satellite view.
 
-| Building | Footprint (from the plans) | Storeys |
-| --- | --- | --- |
-| ACEB | 89 x 27 m | 4 (3 over the atrium) |
-| SEB, 1959 block on Western Road | 18 x 44 m | 3 |
-| SEB lecture-hall extension (1200, 2200, 2202) | 24 x 35 m | 2 |
-| SEB tower over room 1076 | 9 x 10 m | about 6 (roof plan) |
-| CMLP | 31 x 39 m | 3 |
-| TEB | 23 x 100 m (length estimated) | 4 |
+| Building                                      | Footprint (from the plans)    | Storeys               |
+| --------------------------------------------- | ----------------------------- | --------------------- |
+| ACEB                                          | 89 x 27 m                     | 4 (3 over the atrium) |
+| SEB, 1959 block on Western Road               | 18 x 44 m                     | 3                     |
+| SEB lecture-hall extension (1200, 2200, 2202) | 24 x 35 m                     | 2                     |
+| SEB tower over room 1076                      | 9 x 10 m                      | about 6 (roof plan)   |
+| CMLP                                          | 31 x 39 m                     | 3                     |
+| TEB                                           | 23 x 100 m (length estimated) | 4                     |
 
 ## Edit the campus by hand
 
@@ -84,13 +86,13 @@ Every edit is saved in the world folder (`weve_edits.json`) and re-applied after
 
 ## Commands
 
-| Command | Who | What |
-| --- | --- | --- |
-| `/go`, `/tour`, `/building <teb, seb, aceb or hub>`, `/weve_help` | Everyone | Navigation and help |
-| `/weve_stats` | Operators | Anonymous usage counts from the analytics log |
-| `/weve_reload` | Operators | Reload `weve_content.json` without a restart |
-| `/weve_rebuild` | Operators | Regenerate the campus from the layout code (manual edits are kept) |
-| `/weve_builder`, `/weve_palette`, `/weve_undo`, `/weve_edits`, `/weve_edits_export` | Builders (`weve_builder`) | Edit blocks in the game and share the edits |
+| Command                                                                             | Who                       | What                                                               |
+| ----------------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------------------ |
+| `/go`, `/tour`, `/building <teb, seb, aceb or hub>`, `/weve_help`                   | Everyone                  | Navigation and help                                                |
+| `/weve_stats`                                                                       | Operators                 | Anonymous usage counts from the analytics log                      |
+| `/weve_reload`                                                                      | Operators                 | Reload `weve_content.json` without a restart                       |
+| `/weve_rebuild`                                                                     | Operators                 | Regenerate the campus from the layout code (manual edits are kept) |
+| `/weve_builder`, `/weve_palette`, `/weve_undo`, `/weve_edits`, `/weve_edits_export` | Builders (`weve_builder`) | Edit blocks in the game and share the edits                        |
 
 ## Analytics and privacy (BR-14, NFR-04)
 
@@ -102,4 +104,4 @@ Never commit the world folder (`map.sqlite`): it is binary and cannot be merged.
 
 ## AI use disclosure
 
-The game code, textures, photo placeholders, initial info-point text and this README were generated with Claude (Anthropic) on Nov 6, 2026, at Team 50's request, from the team's Task 1 plan. Claude test-ran the game on a Minetest 5.6.1 server and client. Team 50 reviewed and tested it: *(team to record who reviewed, when, and what was changed)*.
+The game code, textures, photo placeholders, initial info-point text and this README were generated with Claude (Anthropic) on Nov 6, 2026, at Team 50's request, from the team's Task 1 plan. Claude test-ran the game on a Minetest 5.6.1 server and client. Team 50 reviewed and tested it: _(team to record who reviewed, when, and what was changed)_.
