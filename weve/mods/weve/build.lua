@@ -102,7 +102,9 @@ do
 	weve.lobbies.teb = {pos = p, yaw = y}
 	p, y = stand(aceb, 2, 23, 3 * math.pi / 2)                  -- inside the south entrance EX.23, facing ST.B
 	weve.lobbies.aceb = {pos = p, yaw = y}
-	weve.lobbies.seb = {pos = {x = 5, y = 0.5, z = 107}, yaw = math.pi / 2}   -- inside EX.7, facing the entrance hall
+	-- D-20: arrive at the west end of the EX.7 passage, facing south into lobby TA.104, so the SEB
+	-- info point (x -8, z 104) is straight ahead instead of hidden round the corner.
+	weve.lobbies.seb = {pos = {x = -8, y = 0.5, z = 108}, yaw = math.pi}
 end
 
 local POI_LOCAL = { -- building, node (lx, lz), stand (lx, lz), local yaw
@@ -110,7 +112,9 @@ local POI_LOCAL = { -- building, node (lx, lz), stand (lx, lz), local yaw
 	teb_corridor = {teb, teb.cx - 10, teb.corridor.z0, teb.cx - 10, teb.corridor.z1, math.pi},
 	teb_lab = {teb, teb.show.door_x - 1, teb.show.z0, teb.show.door_x, teb.corridor.z0 + 1, 0},
 	aceb_atrium = {aceb, 84, 4, 84, 2, 0},
-	aceb_proto = {aceb, AC.proto.door + 3, AC.gal.z0, AC.proto.door + 3, AC.gal.z0 + 2, math.pi},
+	-- D-19: info point and arrival inside room 1440 (lz 1..19), just past the door, so the label
+	-- reads "Prototyping space" rather than the Engineering Galleries outside.
+	aceb_proto = {aceb, AC.proto.door + 3, AC.proto.z1 - 2, AC.proto.door + 3, AC.proto.z1, math.pi},
 	aceb_sustain = {aceb, 85, -3, 85, -5, 0},  -- D-14/D-27: arrival 2 m east of the info point, facing it, clear of the pillar and cistern
 }
 local POI_POS = {hub_welcome = {node = {x = 2, y = 0, z = -4}, stand = {x = 2, y = 0.5, z = -7}, yaw = 0}}
@@ -122,7 +126,9 @@ end
 for id, d in pairs({
 	seb_hall = {node = {x = -8, y = 0, z = 104}, stand = {x = -6, y = 0.5, z = 107}},
 	seb_dean = {node = {x = 5, y = 0, z = 115}, stand = {x = 3, y = 0.5, z = 114}},
-	seb_classroom = {node = {x = 33, y = 0, z = 114}, stand = {x = 32, y = 0.5, z = 112}},
+	-- D-19: inside lecture hall 1200 (x 29..48, z 116..130) at the front, by the west door,
+	-- instead of in lobby TA.121 outside it.
+	seb_classroom = {node = {x = 32, y = 0, z = 117}, stand = {x = 30, y = 0.5, z = 117}},
 }) do
 	d.yaw = yaw_to(d.stand, d.node)
 	POI_POS[id] = d
@@ -785,7 +791,7 @@ function weve.build_all(on_done)
 end
 
 local storage = minetest.get_mod_storage()
-local BUILD_VERSION = "13"
+local BUILD_VERSION = "14"   -- 14: D-19 and D-20 moved two info points and the SEB arrival
 
 function weve.ensure_built(force, on_done)
 	if not force and storage:get_string("built") == BUILD_VERSION then
