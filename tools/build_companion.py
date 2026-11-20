@@ -64,7 +64,7 @@ footer {{ max-width:48rem; margin:2rem auto; padding:0 1rem 2rem; color:var(--mu
 <header><h1>Western Engineering Virtual Explorer: text tour</h1>
 <p>An accessible companion to the WEVE 3D prototype. Every space and point of interest from the 3D tour is described here.</p></header>
 <main id="content">
-<p class="note">Prototype by SE 3351 Team 50. Draft content, not Western-approved. Photos were taken on campus by the team and checked for privacy on Nov 8; the teaching-lab photo is still a placeholder.</p>
+<p class="note">Prototype by SE 3351 Team 50. Draft content, not Western-approved. Photos were taken on campus by the team and checked for privacy on Nov 8; the teaching-lab photo was added in Sprint 1; it was taken from the public corridor, with the door notice, sign text and view through the door window blurred, and approved in a two-person privacy check.</p>
 <nav aria-label="Buildings"><h2>Contents</h2><ul>{"".join(nav)}</ul></nav>
 {"".join(parts)}
 </main>
