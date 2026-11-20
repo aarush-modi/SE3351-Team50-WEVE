@@ -32,11 +32,11 @@
       "id": "hub_welcome",
       "building": "hub",
       "title": "Welcome to the Western Engineering Virtual Explorer",
-      "text": "Explore three Western Engineering buildings from anywhere. Walk with W A S D and look around with the mouse. Right-click a purple info point to learn about a space. Right-click a purple pad behind you to jump to a building, or type /building teb, /building seb or /building aceb. Use the guide item (or type /go) to travel straight to any point of interest or to follow the guided tour. Areas behind grey doors are not part of the tour.",
+      "text": "Explore three Western Engineering buildings from anywhere. Walk with W A S D and look around with the mouse. Right-click a purple info point to learn about a space. Right-click a purple pad in front of you to jump to a building, or type /building teb, /building seb or /building aceb. Use the guide item (or type /go) to travel straight to any point of interest or to follow the guided tour. Areas behind grey doors are not part of the tour.",
       "image": "weve_photo_hub_welcome.png",
       "links": [
         {
-          "label": "Western Engineering programs",
+          "label": "Western Engineering Upper Year Programs",
           "url": "https://www.eng.uwo.ca/future-students/programs/index.html"
         }
       ]
@@ -148,7 +148,7 @@
       "image": "weve_photo_aceb_proto.png",
       "links": [
         {
-          "label": "Western Engineering programs",
+          "label": "Western Engineering Upper Year Programs",
           "url": "https://www.eng.uwo.ca/future-students/programs/index.html"
         }
       ]

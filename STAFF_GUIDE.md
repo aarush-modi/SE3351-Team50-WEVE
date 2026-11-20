@@ -7,10 +7,15 @@ All visible text, photos and links live in one file. You never need to edit code
 1. Open `weve/mods/weve/content/weve_content.json` in any text editor (Notepad, TextEdit, VS Code).
    To keep the original untouched, copy it into the world folder (`worlds/WEVE/weve_content.json`). A copy there takes priority.
 2. Find the info point by its `"title"`, then edit `"text"`, `"title"` or the `"links"` list. Keep the quotation marks and commas exactly as they are.
-3. Save the file. Restart the game, or type `/weve_reload` as an operator.
+3. Save the file. Restart the game, or follow the server command steps below to reload it while the game is running.
 4. Right-click the info point in the game to check the change.
 
 If the panel stops showing your text, the file probably has a missing comma or quote. Paste it into any online "JSON validator" to find the line.
+
+## Reload content or view usage stats
+
+1. From an administrator account that can grant privileges, run `/grantme server` to give yourself the `server` privilege.
+2. Run `/weve_reload` to reload the content file, or `/weve_stats` to view anonymous usage counts.
 
 ## Replace a photo
 

@@ -84,7 +84,7 @@ local AC = {
 	door = {x0 = 79, x1 = 81},
 	gal = {z0 = 21, z1 = 25},            -- TA.141 along the Western Road side = Engineering Galleries
 	stair1 = {x0 = 69},                  -- glass stair beside EX.24 up to floor 2, lz 21..23, climbing towards the hall
-	proto = {x0 = 52, x1 = 64, z0 = 1, z1 = 19, door = 58},   -- room 1440 (about 250 m2 = the 2,500 sq ft space)
+	proto = {x0 = 52, x1 = 64, z0 = 1, z1 = 19, door = 58},   -- room 1440 (about 232 m² = the 2,500 sq ft space)
 	void = {z0 = 8, z1 = 20},            -- open to below on floors 2 and 3 (SEB-03, SEB-04), lx 78..87
 	ust = {z0 = 17, z1 = 20},            -- U-shaped stair ST.E, floor 2 -> 3, over the atrium
 	stf = {x0 = 75, x1 = 76},            -- ST.F, floor 3 -> 4, in corridor TA.343
