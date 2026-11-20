@@ -19,7 +19,7 @@ The team's WEVE server is hosted on a team member's laptop, so it is only reacha
 
 1. Install Luanti (free) from https://www.luanti.org/downloads/ and start it. You do not need to copy the `weve` folder; the server sends everything.
 2. Open the **Join Game** tab.
-3. Enter the address `99.242.39.37` and the port `30000`.
+3. Ask the team on Discord for the server address (it is shared privately, not posted here). Enter that address and the port `30000`.
 4. Type any name and leave the password empty.
 5. Click **Login** (or **Connect**). If Luanti asks you to confirm a new account, leave the password empty and click **Register and Join**.
 6. You start on the hub plaza between the buildings. See **How to explore** below.
