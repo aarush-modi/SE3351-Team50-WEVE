@@ -13,6 +13,19 @@ SE 3351 Group Project, Team 50. A block-based digital twin of three Western Engi
 
 Companion page (text tour): https://aarush-modi.github.io/SE3351-Team50-WEVE/companion/
 
+## Join the team server
+
+The team's WEVE server is hosted on a team member's laptop, so it is only reachable while that laptop is on. If you cannot connect, use the companion page above or ask the team.
+
+1. Install Luanti (free) from https://www.luanti.org/downloads/ and start it. You do not need to copy the `weve` folder; the server sends everything.
+2. Open the **Join Game** tab.
+3. Enter the address `99.242.39.37` and the port `30000`.
+4. Type any name and leave the password empty.
+5. Click **Login** (or **Connect**). If Luanti asks you to confirm a new account, leave the password empty and click **Register and Join**.
+6. You start on the hub plaza between the buildings. See **How to explore** below.
+
+Visitors cannot fly, dig or build. WEVE does not record names or IP addresses, and the server is set to keep them out of its log (NFR-04).
+
 ## Run it (about 5 minutes)
 
 1. Install Luanti (free) from https://www.luanti.org/downloads/. Tested with the Minetest 5.6.1 engine, the release before the rename to Luanti; any Luanti 5.x release should work.
@@ -24,7 +37,7 @@ No other games or mods are needed. No account is needed to explore.
 
 ### Let others visit (remote access, NFR-01)
 
-No server is running yet; someone on the team has to host one. There are two ways:
+The team server above runs on a team laptop. To host your own copy, there are two ways:
 
 1. **From a team laptop (free, good for the demo).** In Luanti, open **Start Game**, select the WEVE world, tick **Host Server**, enter a name and password for yourself, and press **Host Game**. Keep the laptop awake. Others on the same network open **Join Game** and enter the laptop's IP address (on Windows, `ipconfig`; on macOS, System Settings > Network) and port `30000`. Campus Wi-Fi may block connections between devices; a phone hotspot works for a demo. To reach it from home, the laptop's router must forward UDP port 30000.
 2. **On a small cloud machine (always on, about CAD 5-10 a month).** Install the Luanti server (`sudo apt install minetest-server` on Ubuntu), copy the `weve` folder to `~/.minetest/games/`, open UDP port 30000 in the firewall, and run `minetestserver --gameid weve --worldname WEVE --port 30000`. Visitors join with the machine's public address.
@@ -39,7 +52,7 @@ Visitors get only the `interact` and `shout` privileges, so they cannot fly, pas
 - **Info points** are purple pedestals. Right-click one to open its panel with text, a photo and program links.
 - **Choose a building:** right-click a purple pad on the hub plaza, or type `/building teb`, `/building seb` or `/building aceb`. `/building hub` returns to the start.
 - **Quick travel and guided tour:** left-click while holding the guide item (the only item in your hotbar), or type `/go`. The tour (`/tour`) visits all 10 info points in order with a **Next stop** button.
-- The top of the screen always shows where you are, for example `TEB - Ground floor - Main lobby`.
+- The bottom of the screen, just above the hotbar, always shows where you are, for example `TEB - Ground floor - Main lobby`.
 - In ACEB you can walk up the glass stairs: ST.B from the south entrance to floor 2, the floor 2 corridor to the north atrium, the U-shaped stair ST.E to floor 3 and ST.F to the floor 4 landing.
 
 ## Scope implemented
