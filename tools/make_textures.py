@@ -105,3 +105,58 @@ sm = Image.new("RGBA", (16, 16), (79, 38, 131, 255)); d = ImageDraw.Draw(sm)
 d.polygon([(4, 7), (8, 2), (12, 7)], fill=(255, 255, 255, 255)); d.polygon([(4, 9), (8, 14), (12, 9)], fill=(255, 220, 120, 255))
 save(sm, "weve_stairs.png")
 print("textures written to", out)
+# wayfinding signs (WEVE-41): 384 x 128 px, cut into three 128 px tiles, one per block.
+# Arrows point the way the reader turns; "up" means straight ahead, "up_left" ahead then left.
+WAY_SIGNS = [
+    ("teb_ahead", "up", "ECE teaching lab", "Corridor info point"),
+    ("teb_lab_right", "right", "ECE teaching lab", ""),
+    ("teb_info_left", "left", "Info point", "Main corridor"),
+    ("teb_lab_door", None, "ECE teaching lab", ""),
+    ("aceb_hall_post", "up_left", "Prototyping space 1440", "ahead, then left"),
+    ("aceb_south_post", "up", "Prototyping space 1440", "on the right, 50 m"),
+    ("aceb_proto_door", None, "Prototyping space 1440", ""),
+    ("seb_entry_left", "left", "Lecture hall 1200", "Dean's office, info point"),
+    ("seb_route_left", "left", "Lecture hall 1200", "Dean's office"),
+    ("seb_route_right", "right", "Lecture hall 1200", "Dean's office"),
+    ("seb_hall_right", "right", "Lecture hall 1200", ""),
+    ("seb_hall_door", None, "Lecture hall 1200", ""),
+    ("closed_left", "left", "No tour stops", "this way"),
+    ("closed_right", "right", "No tour stops", "this way"),
+]
+FONT_REG = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+def fit(d, text, path, size, width):
+    while size > 10:
+        f = ImageFont.truetype(path, size)
+        if d.textlength(text, font=f) <= width: return f
+        size -= 1
+    return ImageFont.truetype(path, size)
+def way_arrow(d, kind, cx, cy, col):
+    if kind == "right":
+        d.rectangle([cx - 34, cy - 9, cx + 6, cy + 9], fill=col); d.polygon([(cx + 4, cy - 26), (cx + 36, cy), (cx + 4, cy + 26)], fill=col)
+    elif kind == "left":
+        d.rectangle([cx - 6, cy - 9, cx + 34, cy + 9], fill=col); d.polygon([(cx - 4, cy - 26), (cx - 36, cy), (cx - 4, cy + 26)], fill=col)
+    elif kind == "up":
+        d.rectangle([cx - 9, cy - 6, cx + 9, cy + 36], fill=col); d.polygon([(cx - 26, cy - 4), (cx, cy - 36), (cx + 26, cy - 4)], fill=col)
+    elif kind == "up_left":
+        d.rectangle([cx + 6, cy - 10, cx + 24, cy + 38], fill=col); d.rectangle([cx - 14, cy - 10, cx + 24, cy + 8], fill=col)
+        d.polygon([(cx - 12, cy - 28), (cx - 40, cy - 1), (cx - 12, cy + 26)], fill=col)
+for sid, kind, line1, line2 in WAY_SIGNS:
+    closed = sid.startswith("closed")
+    bg, fg = ((70, 72, 76, 255), (255, 255, 255, 255)) if closed else ((79, 38, 131, 255), (255, 255, 255, 255))
+    im = Image.new("RGBA", (384, 128), bg); d = ImageDraw.Draw(im)
+    d.rectangle([3, 3, 380, 124], outline=(200, 60, 50, 255) if closed else (255, 220, 120, 255), width=4)
+    if kind is None:                                   # door header: centred name, no arrow
+        f = fit(d, line1, FONT, 40, 340); d.text((192, 64), line1, font=f, fill=fg, anchor="mm")
+    else:
+        ax = 318 if kind == "right" else 62            # arrow on the side it points to
+        way_arrow(d, kind, ax, 64, (255, 220, 120, 255) if not closed else (240, 90, 80, 255))
+        tx0, tx1 = (20, 270) if kind == "right" else (114, 368)
+        cxt = (tx0 + tx1) // 2
+        f1 = fit(d, line1, FONT, 34, tx1 - tx0)
+        if line2:
+            f2 = fit(d, line2, FONT_REG, 24, tx1 - tx0)
+            d.text((cxt, 48), line1, font=f1, fill=fg, anchor="mm"); d.text((cxt, 88), line2, font=f2, fill=fg, anchor="mm")
+        else:
+            d.text((cxt, 64), line1, font=f1, fill=fg, anchor="mm")
+    for i in range(3): im.crop((i * 128, 0, i * 128 + 128, 128)).save(os.path.join(out, f"weve_way_{sid}_{i + 1}.png"))
+print("wayfinding signs written to", out)

@@ -124,7 +124,9 @@ for id, d in pairs(POI_LOCAL) do
 end
 -- SEB (world coordinates, SEB-02)
 for id, d in pairs({
-	seb_hall = {node = {x = -8, y = 0, z = 104}, stand = {x = -6, y = 0.5, z = 107}},
+	-- WEVE-40 (D-29): arrive at the west end of the EX.7 passage, like SEB quick travel (D-20), so the
+	-- info point in lobby TA.104 is straight ahead; from x -6 the passage corner hid it.
+	seb_hall = {node = {x = -8, y = 0, z = 104}, stand = {x = -8, y = 0.5, z = 108}},
 	seb_dean = {node = {x = 5, y = 0, z = 115}, stand = {x = 3, y = 0.5, z = 114}},
 	-- D-19: inside lecture hall 1200 (x 29..48, z 116..130) at the front, by the west door,
 	-- instead of in lobby TA.121 outside it.
@@ -232,6 +234,25 @@ local function fill(x0, y0, z0, x1, y1, z1, name, param2)
 	end
 end
 local meta_jobs = {}
+local sign_jobs = {}
+
+-- Wayfinding signs (WEVE-41). Sprint 1 Review: finding the way inside the buildings was the most
+-- confusing part of the tour. Each sign is three blocks wide; (x, y, z) is the block on the reader's
+-- left, in the current frame. front = the side the sign faces: "-z", "+z", "-x" or "+x".
+-- "way" signs replace three wall blocks; "waypost" signs are a board on two poles in an open hall.
+local FRONT = {["-z"] = {p2 = 0, dx = 0, dz = 1}, ["-x"] = {p2 = 1, dx = 1, dz = 0},
+	["+z"] = {p2 = 2, dx = 0, dz = -1}, ["+x"] = {p2 = 3, dx = -1, dz = 0}}   -- d = the reader's view direction
+local function sign(kind, id, x, y, z, front, text)
+	local f = FRONT[front]
+	local rx, rz = f.dz, -f.dx                                -- the reader's right
+	for t = 1, 3 do
+		local tx, tz = x + rx * (t - 1), z + rz * (t - 1)
+		set(tx, y, tz, N .. kind .. "_" .. id .. "_" .. t, f.p2)
+		if kind == "waypost" and t ~= 2 then set(tx, y - 1, tz, N .. "signpole") end
+		table.insert(sign_jobs, {pos = TF and to_world(TF, tx, y, tz) or {x = tx, y = y, z = tz}, text = text,
+			front = front, frame = TF and TF.code or "world", id = id, kind = kind})
+	end
+end
 
 -- door in a wall that runs along x (param2 0) or along z (param2 1)
 local function door(x, z, locked, along_z)
@@ -583,6 +604,15 @@ local function details_teb(b)
 	end
 	fill(S.x0 + 2, 1, S.z1, S.x1 - 2, 2, S.z1, N .. "whiteboard", 2)
 	fill(S.x0, 0, S.z0 + 1, S.x1, 2, S.z0 + 1, N .. "barrier")          -- doorway view only
+	-- wayfinding (WEVE-41): from the lobby straight on into the corridor; the lab door is to the right
+	-- and the corridor info point to the left; the rest of the corridor has no tour stops.
+	local C = b.corridor
+	sign("way", "teb_ahead", b.cx + 3, 1, C.wall_s, "-z", "Straight ahead: ECE teaching lab (then right) and the corridor info point (then left)")
+	sign("way", "teb_lab_right", b.cx, 1, C.wall_n, "-z", "ECE teaching lab: turn right, door on the left")
+	sign("way", "teb_info_left", b.cx - 4, 1, C.wall_n, "-z", "Info point, main corridor: turn left")
+	sign("way", "teb_lab_door", S.door_x - 1, 2, C.wall_n, "-z", "ECE teaching lab")
+	sign("way", "closed_right", S.x1 + 5, 1, C.wall_n, "-z", "No tour stops beyond this point")
+	sign("way", "closed_left", 5, 1, C.wall_n, "-z", "No tour stops beyond this point")
 	infopoint("teb_lobby") infopoint("teb_corridor") infopoint("teb_lab")
 end
 
@@ -683,6 +713,11 @@ local function build_aceb()
 		for z = 3, 24, 2 do set(x, 16, z, N .. "solar") set(x + 1, 16, z, N .. "solar") end
 	end
 	fill(86, 0, -4, 88, 2, -2, N .. "cistern")
+	-- wayfinding (WEVE-41): from the courtyard entrance EX.18 and from the south entrance EX.23
+	-- (quick-travel arrival) to the prototyping space, whose doors open off the Engineering Galleries.
+	sign("waypost", "aceb_hall_post", 82, 1, 10, "-z", "Prototyping space 1440: walk ahead to the Engineering Galleries, then turn left")
+	sign("waypost", "aceb_south_post", 7, 1, 25, "-x", "Prototyping space 1440: straight ahead along the Engineering Galleries, doors on the right after 50 m. The atrium is at the far end.")
+	sign("way", "aceb_proto_door", P.door + 2, 2, G.z0 - 1, "+z", "Prototyping space 1440")
 	infopoint("aceb_atrium") infopoint("aceb_proto") infopoint("aceb_sustain")
 end
 
@@ -736,6 +771,14 @@ local function build_seb()
 	lights(hall.x0, hall.x1, hall.z0, hall.z1, 5)
 	lights(-11, 10, 107, 108, 2) lights(-9, -7, 104, 106, 2) lights(-11, -10, 109, 113, 2) lights(-30, 21, 114, 115, 2)
 	lights(22, 27, 113, 115, 2) lights(28, 49, 110, 114, 2)
+	-- wayfinding (WEVE-41): EX.7 passage west, north up TA.103, east along TA.101 to lecture hall 1200;
+	-- the 1959 block at the west end of TA.101 is closed.
+	sign("way", "seb_entry_left", 7, 1, 109, "-z", "Turn left for the info point, the Dean's office and lecture hall 1200")
+	sign("way", "seb_route_left", -9, 1, 109, "-z", "Lecture hall 1200 and the Dean's office: turn left, then right up corridor TA.103")
+	sign("way", "seb_route_right", -11, 1, 116, "-z", "Lecture hall 1200 and the Dean's office: turn right along the main corridor")
+	sign("way", "closed_left", -15, 1, 116, "-z", "No tour stops beyond this point (1959 block)")
+	sign("way", "seb_hall_right", 18, 1, 116, "-z", "Lecture hall 1200: keep going, past stair ST.1; door on the left")
+	sign("way", "seb_hall_door", 29, 2, 115, "-z", "Lecture hall 1200")
 	infopoint("seb_hall") infopoint("seb_dean") infopoint("seb_classroom")
 end
 
@@ -765,6 +808,7 @@ function weve.build_all(on_done)
 	area = VoxelArea:new({MinEdge = e1, MaxEdge = e2})
 	data, p2 = vm:get_data(), vm:get_param2_data()
 	meta_jobs = {}
+	sign_jobs = {}
 	TF = nil
 	build_site()
 	TF = teb
@@ -784,6 +828,8 @@ function weve.build_all(on_done)
 		local p = weve.pois[j.id]
 		m:set_string("infotext", "Info point: " .. (p and p.title or j.id) .. " (right-click)")
 	end
+	for _, j in ipairs(sign_jobs) do minetest.get_meta(j.pos):set_string("infotext", j.text) end
+	weve.sign_jobs = sign_jobs
 	vm, area, data, p2 = nil, nil, nil, nil
 	if weve.apply_edits then weve.apply_edits() end      -- the team's manual fixes (editor.lua)
 	minetest.log("action", "[weve] campus generated: " .. #meta_jobs .. " info points placed")
@@ -791,7 +837,7 @@ function weve.build_all(on_done)
 end
 
 local storage = minetest.get_mod_storage()
-local BUILD_VERSION = "14"   -- 14: D-19 and D-20 moved two info points and the SEB arrival
+local BUILD_VERSION = "15"   -- 15: WEVE-41 wayfinding signs, WEVE-40 stop 5 arrival (14: D-19, D-20)
 
 function weve.ensure_built(force, on_done)
 	if not force and storage:get_string("built") == BUILD_VERSION then

@@ -125,3 +125,31 @@ for _, code in ipairs({"teb", "seb", "aceb"}) do
 			 "weve_sign_" .. code .. "_" .. i .. ".png"}, {paramtype2 = "facedir"})
 	end
 end
+
+-- wayfinding signs (WEVE-41). Each sign is three blocks wide; the sign face points south (-Z)
+-- at facedir 0, like the building signs. "way_" signs replace a wall block; "waypost_" signs are a
+-- thin board standing on two poles, for open halls with no wall at the decision point.
+local WAY_WALL = {"teb_ahead", "teb_lab_right", "teb_info_left", "teb_lab_door", "aceb_proto_door",
+	"seb_entry_left", "seb_route_left", "seb_route_right", "seb_hall_right", "seb_hall_door", "closed_left", "closed_right"}
+local WAY_POST = {"aceb_hall_post", "aceb_south_post"}
+for _, id in ipairs(WAY_WALL) do
+	for i = 1, 3 do
+		cube("way_" .. id .. "_" .. i, "Wayfinding sign",
+			{"weve_wall.png", "weve_wall.png", "weve_wall.png", "weve_wall.png", "weve_wall.png",
+			 "weve_way_" .. id .. "_" .. i .. ".png"}, {paramtype2 = "facedir"})
+	end
+end
+for _, id in ipairs(WAY_POST) do
+	for i = 1, 3 do
+		minetest.register_node("weve_nodes:waypost_" .. id .. "_" .. i, base({
+			description = "Wayfinding sign", drawtype = "nodebox", paramtype = "light", paramtype2 = "facedir",
+			tiles = {"weve_purple.png", "weve_purple.png", "weve_purple.png", "weve_purple.png", "weve_purple.png",
+				"weve_way_" .. id .. "_" .. i .. ".png"},
+			node_box = {type = "fixed", fixed = {-0.5, -0.5, -0.05, 0.5, 0.5, 0.05}},
+		}))
+	end
+end
+minetest.register_node("weve_nodes:signpole", base({
+	description = "Sign pole", drawtype = "nodebox", paramtype = "light", tiles = {"weve_concrete_dark.png"},
+	node_box = {type = "fixed", fixed = {-0.06, -0.5, -0.06, 0.06, 0.5, 0.06}},
+}))
